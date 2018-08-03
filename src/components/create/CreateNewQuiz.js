@@ -9,7 +9,7 @@ import * as actions from "../../actions/";
 
 class CreateNewQuiz extends Component{
 
-  state = {quizData: '', showUpdateLabel:false};
+  state = {quizData: ''};
 
 
   handleInputChange = event => {
@@ -17,10 +17,13 @@ class CreateNewQuiz extends Component{
   };
 
   handleFormSubmit = event => {
+    event.preventDefault();
+
     const {quizData} = this.state;
     const {addQuiz} = this.props;
-    event.preventDefault();
-    addQuiz(quizData);
+    const {userID} = this.props;
+
+    addQuiz(quizData, userID);
     this.setState({quizData: ''});
   }
 
@@ -76,18 +79,20 @@ class CreateNewQuiz extends Component{
     return(
       <div className="to-do-list-container">
         <div className="row">
-          {this.state.showUpdateLabel ? '<div>Quiz has been updated' : null}
+          {this.props.showUpdateLabel ? 'Quiz has been updated' : null}
           {this.renderAddForm()}
-          {this.renderQuizzes()}
+          {/* {this.renderQuizzes()} */}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ data }) => {
+const mapStateToProps = ({ data, auth }) => {
   return {
-    data
+    data:data.quizzes,
+    showUpdateLabel:data.showUpdateLabel,
+    userID:auth.userID
   };
 };
 

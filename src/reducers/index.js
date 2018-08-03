@@ -1,6 +1,10 @@
 import {combineReducers} from 'redux';
-import data from './dataReducers';
+import data from './dataReducer';
+import auth from './authReducer';
+import singleQuiz from './singleQuiz';
 
 export default combineReducers({
-  data
+  data,
+  auth,
+  singleQuiz
 });
